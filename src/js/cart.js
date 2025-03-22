@@ -21,6 +21,16 @@ function renderCartContents() {
       removeFromCart(index);
     });
   });
+    const cartFooter = document.querySelector(".list-footer");
+    const totalElement = document.getElementById("cart-total");
+
+    if (cartItems.length > 0) {
+    const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+    totalElement.textContent = total.toFixed(2);
+    cartFooter.classList.remove("hide");
+    } else {
+    cartFooter.classList.add("hide");
+    }
 }
 
 function cartItemTemplate(item, index) {
