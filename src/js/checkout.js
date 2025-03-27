@@ -10,11 +10,11 @@ order.init();
 // Add event listeners to fire calculateOrderTotal when the user changes the zip code
 document
   .querySelector("#zip")
-  .addEventListener("blur", order.calculateOrderTotal.bind(order));
+  .addEventListener("blur", order.calculateOrdertotal.bind(order));
 
 // listening for click on the button
 document.forms["checkout"].addEventListener("submit", async (e) => {
     e.preventDefault();
-    order.calculateOrderTotal();
+    order.calculateOrdertotal();
     await order.checkout();
   });
