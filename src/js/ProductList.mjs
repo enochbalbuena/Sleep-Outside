@@ -18,21 +18,39 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.list = [];
   }
 
   async init() {
-    const list = await this.dataSource.getData(this.category);
-    this.renderList(list);
+    this.list = await this.dataSource.getData(this.category);
+    this.renderList(this.list);
     document.querySelector(".title").textContent = this.category;
   }
 
   renderList(list) {
-    // const htmlStrings = list.map(productCardTemplate);
-    // this.listElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
-
-    // apply use new utility function instead of the commented code above
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
-
+    renderListWithTemplate(productCardTemplate, this.listElement, list, "afterbegin", true);
   }
 
+  sortAndRender(sortType) {
+    const sorted = [...this.list];
+
+    switch (sortType) {
+      case "name-asc":
+        sorted.sort((a, b) => a.Name.localeCompare(b.Name));
+        break;
+      case "name-desc":
+        sorted.sort((a, b) => b.Name.localeCompare(a.Name));
+        break;
+      case "price-asc":
+        sorted.sort((a, b) => a.FinalPrice - b.FinalPrice);
+        break;
+      case "price-desc":
+        sorted.sort((a, b) => b.FinalPrice - a.FinalPrice);
+        break;
+      default:
+        break;
+    }
+
+    this.renderList(sorted);
+  }
 }

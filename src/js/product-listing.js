@@ -10,3 +10,10 @@ const element = document.querySelector(".product-list");
 const listing = new ProductList(category, dataSource, element);
 
 listing.init();
+
+const sortMenu = document.querySelector("#sort");
+
+sortMenu.addEventListener("change", (e) => {
+  const sortBy = e.target.value;
+  listing.sortAndRender(sortBy);
+});
